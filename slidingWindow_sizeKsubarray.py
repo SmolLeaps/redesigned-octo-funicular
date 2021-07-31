@@ -1,5 +1,6 @@
 '''
-Sliding Window Algorithm - Getting the average of Size K contiguous subarrays in an array
+Q1 - Fixed size sliding window
+Getting the average of Size K contiguous subarrays in an array
 Time Complexity: O(n)
 
 - iterate through a given list
@@ -8,8 +9,8 @@ Time Complexity: O(n)
 
 def slidingWindow_sizeKsubarray(k, array):
     # traversing through the array
-    sum = (array[0]+array[1]+array[2]+array[3]+array[4]) #let's do the averaging inside the for loop
-    averages = [sum/5] #stores the moving average result calculated through the traversal. 
+    total = sum(array[0:k])
+    averages = [total/k] #stores the moving average result calculated through the traversal. 
     for i in range(0, len(array) - k):
         #slide the window to the right, traverse the array
     
@@ -19,9 +20,9 @@ def slidingWindow_sizeKsubarray(k, array):
         # eg. when the window hits the end, window stops when it takes in acc first of the window and last of the window
         # i.e. -1 + 6. End.  
 
-        sum -= array[i]
-        sum += array[i+k]
-        average = sum / k
+        total -= array[i]
+        total += array[i+k]
+        average = total / k
         averages.append(average) #at the end of the "processing", add to list of averages
 
     return averages
