@@ -29,16 +29,16 @@ Note down the consituents of this window that satisfied the condition.
 """
 
 def findSmallestSubarray(array, S):
-    #we are varying the window size because we want to 
     smallest_window_size = float('inf')
     left_ptr = right_ptr = 0
     window_sum = array[0]
-    while (right_ptr < len(array)-1):
-        while (window_sum<=S) and (right_ptr<len(array)-1): #expands window from the right when sum < S
+    #iterate through the given array
+    while (right_ptr < len(array) - 1):
+        while (window_sum<S) and (right_ptr<len(array)-1): #expands window from the right when sum < S
             right_ptr += 1
             window_sum += array[right_ptr]
             print("1st while loop",window_sum, " rightptr: ", right_ptr)
-        while (window_sum>S) and ((right_ptr - left_ptr + 1) > 1): #shrinks window from the left when sum > S
+        while (window_sum>=S) and ((right_ptr - left_ptr + 1) > 1): #shrinks window from the left when sum > S
             current_window_size = right_ptr - left_ptr + 1
             if (current_window_size < smallest_window_size):
                 smallest_window_size = current_window_size 
@@ -75,6 +75,6 @@ def findSmallestSubarray(array, S):
 #         return min_length
 
 testcase1 = [2, 1, 7, 2, 3, 2]
-testcase2 = [1,1,1,1,1,1,1]
+testcase2 = [1, 1, 1, 1, 1, 1, 1, 1]
 S = 8
-print(findSmallestSubarray(testcase1, S))
+print(findSmallestSubarray(testcase2, S))
