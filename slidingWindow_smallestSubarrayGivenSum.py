@@ -55,12 +55,20 @@ def findSmallestSubarray(array, S):
         return smallest_window_size
 
 # def findSmallestSubarray(array, S):
+#     """
+#     Find the smallest subarray of any contiguous subarray of at least given sum S.
+#     """
 #     window_sum = 0
 #     min_length = float('inf')
 #     window_start = 0
+#     # keep increasing the end of the window...
 #     for window_end in range(len(array)):
 #         window_sum += array[window_end]
 
+#         # until the total sum inside the window is greater than S
+#         # then, we keep decreasing the length of the window from the left
+#         # until the total sum inside the window is less than S again
+#         # rinse and repeat
 #         while window_sum >= S:
 #             current_length = window_end - window_start + 1
 #             if current_length < min_length:
