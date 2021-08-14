@@ -10,40 +10,36 @@ if you want debugging logs at each iteration of the for loop, uncomment lines 21
 """
 
 def longestSubstring(inputString, k):
-    finalSubstring = '1'
     windowStart = 0
-    memo = ''
-    windowSum = ''
-    largestWindowSums = [inputString[0]]
+    windowString = ''
+    longestSubstringLength = 0
     #keep iterating through the string...
     for windowEnd in range(0, len(inputString)):
-        windowSum += inputString[windowEnd]
-        #print("current window sum: ", windowSum)
+        windowString += inputString[windowEnd]
+        print("window start:", windowStart, "window end:", windowEnd)
+        print("current window sum: ", windowString)
         
-        numDistinctCharacters = len(set(windowSum))
-        #print("numDistinctCharacters", numDistinctCharacters, "\n")
-        #until there are more than K distinct characters
-        if numDistinctCharacters > k:
-            #print("NUM DISTINCT CHARS EXCEEDED GIVEN CONSTRAINT k...")
-            # print("current window sum: ", windowSum)
-            windowStart += 1
-            windowSum = inputString[windowStart:windowEnd]
-            #print("new windowSum:", windowSum, "\n")
-        elif windowSum not in largestWindowSums and len(windowSum) >= len(max(largestWindowSums, key=len)):
-            largestWindowSums.append(windowSum)
-        else: 
-            continue
-        #print(max(largestWindowSums, key=len))
-        #stop when the substring is back to 2 distinct characters
-        #print('current window sum at the end of loop:', windowSum, ' distinct chars: ', numDistinctCharacters) 
+        numDistinctCharacters = len(set(windowString))
+        print("numDistinctCharacters", numDistinctCharacters, "\n")
 
-    return max(largestWindowSums, key=len)
+        #until there are more than K distinct characters
+        while numDistinctCharacters > k:
+            print("NUM DISTINCT CHARS EXCEEDED GIVEN CONSTRAINT k...")
+            print("current window sum: ", windowString)
+            windowStart += 1
+            windowString = inputString[windowStart:windowEnd+1]
+            numDistinctCharacters = len(set(windowString))
+
+            print("new windowString:", windowString, "\n")
+        if len(windowString) > longestSubstringLength:
+            longestSubstringLength = len(windowString)
+    return longestSubstringLength 
 
 print(
     "results:",
     longestSubstring("araaci", 2), # should be 4 ("araa")
     longestSubstring("araaci", 1), # should be 2 ("aa")
     longestSubstring("aaaarrr", 1), #should be 4 ("aaaa"): previous larger lengths should not be overwritten by
-    longestSubstring("aaarrrr", 1), #should be "rrrr",4
-    longestSubstring("aaarrrraaaa", 1), #should be "rrrr" and "aaaa",4
+    longestSubstring("aaarrrr", 1), #should be 4
+    longestSubstring("aaarrrraaaaa", 1), #should be 4
 )
